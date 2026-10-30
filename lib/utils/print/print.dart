@@ -3,11 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:apexo/services/localization/locale.dart';
 
 Future<void> printing(BuildContext context, String header, pw.Widget content, String footer) async {
+  // Readex has no CJK glyphs; use Noto Sans TC (fetched on demand) for Chinese
+  final isChinese = locale.s.$code == "zh";
   var myTheme = pw.ThemeData.withFont(
-    base: pw.Font.ttf(await rootBundle.load("assets/fonts/readex.ttf")),
-    bold: pw.Font.ttf(await rootBundle.load("assets/fonts/readex-bold.ttf")),
+    base: isChinese ? await PdfGoogleFonts.notoSansTCRegular() : pw.Font.ttf(await rootBundle.load("assets/fonts/readex.ttf")),
+    bold: isChinese ? await PdfGoogleFonts.notoSansTCBold() : pw.Font.ttf(await rootBundle.load("assets/fonts/readex-bold.ttf")),
+    fontFallback: [pw.Font.ttf(await rootBundle.load("assets/fonts/readex.ttf"))],
   );
 
   final pdf = pw.Document(theme: myTheme);

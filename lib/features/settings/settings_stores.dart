@@ -107,7 +107,7 @@ class LocalSettings extends ObservablePersistingObject {
 
   String dateFormat = "dd/MM/yyyy";
   ThemeMode selectedTheme = ThemeMode.light;
-  int selectedLocale = 0;
+  int selectedLocale = 3; // 3 = 繁體中文 (index in locale.list)
 
   @override
   fromJson(Map<String, dynamic> json) {

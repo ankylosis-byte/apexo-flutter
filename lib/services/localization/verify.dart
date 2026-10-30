@@ -1,6 +1,7 @@
 import "package:apexo/services/localization/en.dart";
 import "package:apexo/services/localization/es.dart";
 import "package:apexo/services/localization/ar.dart";
+import "package:apexo/services/localization/zh.dart";
 
 // Localization Sync Tool
 class LocalizationSync {
@@ -22,8 +23,10 @@ void main() {
   En en = En();
   Es es = Es();
   Ar ar = Ar();
+  Zh zh = Zh();
 
   // Sync Spanish localization with English
   LocalizationSync.syncLocales(en.dictionary, es.dictionary);
   LocalizationSync.syncLocales(en.dictionary, ar.dictionary);
+  LocalizationSync.syncLocales(en.dictionary, zh.dictionary);
 }

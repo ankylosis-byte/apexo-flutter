@@ -2,17 +2,19 @@ import "package:apexo/features/settings/settings_stores.dart";
 import "package:apexo/services/localization/ar.dart";
 import "package:apexo/services/localization/en.dart";
 import "package:apexo/services/localization/es.dart";
+import "package:apexo/services/localization/zh.dart";
 import "package:fluent_ui/fluent_ui.dart";
 
 class _Localization {
-  List<En> list = [En(), Ar(), Es()];
+  List<En> list = [En(), Ar(), Es(), Zh()];
   En get s => list[localSettings.selectedLocale];
 }
 
 final locale = _Localization();
 
 String txt(String input) {
-  final term = locale.s.dictionary[input];
+  // exact match first, then the lower-cased key (labels such as "Age" or "Weeks" are capitalized in code)
+  final term = locale.s.dictionary[input] ?? locale.s.dictionary[input.toLowerCase()];
   if (term != null) {
     return term;
   }
