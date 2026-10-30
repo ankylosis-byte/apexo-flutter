@@ -17,6 +17,7 @@ jobs:
           flutter-version: 3.29.3
       - run: echo 'const String sentryDSN = "";' > lib/sentry_dsn.dart
       - run: sed -i 's/final isDemo = Uri.base.host == "demo.apexo.app";/final isDemo = true;/' lib/services/launch.dart
+      - run: sed -i 's|<base href="/" />|<base href="$FLUTTER_BASE_HREF">|' web/index.html
       - run: flutter pub get
       - run: flutter build web --release --no-tree-shake-icons --base-href "/${{ github.event.repository.name }}/"
       - uses: actions/upload-pages-artifact@v3
